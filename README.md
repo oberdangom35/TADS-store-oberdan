@@ -60,7 +60,7 @@ npm run dev
 
 ## 👨‍💻 Desenvolvedor
 
-Instituto Federal do Espírito Santo - Campus Alegre
-Curso: Tecnologia em Análise e Desenvolvimento de Sistemas - EAD
-Aluno: Oberdan Covre Gomes
-Matricula: 202502EADS0249
+* **Instituição:** Instituto Federal do Espírito Santo - Campus Alegre
+* **Curso:** Tecnologia em Análise e Desenvolvimento de Sistemas - EAD
+* **Aluno:** Oberdan Covre Gomes
+* **Matrícula:** 202502EADS0249
