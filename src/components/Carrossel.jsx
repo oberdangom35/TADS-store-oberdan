@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Selo from './Selo';
 
 function Carrossel({ produtos }) {
   const [indiceAtual, setIndiceAtual] = useState(0);
@@ -35,7 +36,7 @@ function Carrossel({ produtos }) {
             <img src={produtos[indiceAtual].imagem} alt={produtos[indiceAtual].nome} />
           </div>
           <div className="carrossel-info">
-            <span className="carrossel-badge">Produto em Destaque</span>
+            <Selo texto="Produto em Destaque" cor="verde" />
             <h2>{produtos[indiceAtual].nome}</h2>
             <p>{produtos[indiceAtual].descricao}</p>
             <p className="carrossel-preco">

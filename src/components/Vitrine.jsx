@@ -9,7 +9,8 @@ function Vitrine() {
       descricao: "Máscara volumizadora e alongadora com fórmula duradoura e cruelty-free",
       preco: 49.90,
       imagem: "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp",
-      freteGratis: true
+      freteGratis: true,
+      destaque: true
     },
     {
       id: 2,
@@ -17,7 +18,8 @@ function Vitrine() {
       descricao: "Paleta versátil de sombras com espelho embutido para maquiagem em movimento",
       preco: 99.90,
       imagem: "https://cdn.dummyjson.com/product-images/beauty/eyeshadow-palette-with-mirror/1.webp",
-      freteGratis: true
+      freteGratis: true,
+      destaque: true
     },
     {
       id: 3,
@@ -25,7 +27,8 @@ function Vitrine() {
       descricao: "Fragrância unissex clássica, conhecida por seu aroma fresco e limpo",
       preco: 249.90,
       imagem: "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/1.webp",
-      freteGratis: false
+      freteGratis: false,
+      destaque: false
     },
     {
       id: 4,
@@ -33,7 +36,8 @@ function Vitrine() {
       descricao: "Fragrância elegante e misteriosa com notas de toranja, rosa e sândalo",
       preco: 649.90,
       imagem: "https://cdn.dummyjson.com/product-images/fragrances/chanel-coco-noir-eau-de/1.webp",
-      freteGratis: true
+      freteGratis: true,
+      destaque: true
     },
     {
       id: 5,
@@ -41,7 +45,8 @@ function Vitrine() {
       descricao: "Fragrância floral e cativante com notas de tuberosa, jasmim e Rangoon",
       preco: 399.90,
       imagem: "https://cdn.dummyjson.com/product-images/fragrances/gucci-bloom-eau-de/1.webp",
-      freteGratis: false
+      freteGratis: false,
+      destaque: false
     },
     {
       id: 6,
@@ -49,11 +54,12 @@ function Vitrine() {
       descricao: "Estrutura de cama luxuosa e elegante, feita com materiais de alta qualidade",
       preco: 9499.90,
       imagem: "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/1.webp",
-      freteGratis: true
+      freteGratis: true,
+      destaque: false
     }
   ];
 
-  const produtosDestaque = produtos.slice(0, 3);
+  const produtosDestaque = produtos.filter(produto => produto.destaque);
 
   return (
     <section className="vitrine">
