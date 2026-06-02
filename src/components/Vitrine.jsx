@@ -1,77 +1,138 @@
+import { useState, useEffect, useRef } from 'react';
 import ProdutoCard from './ProdutoCard';
 import Carrossel from './Carrossel';
 
-function Vitrine() {
-  const produtos = [
-    {
-      id: 1,
-      nome: "Essence Mascara Lash Princess",
-      descricao: "Máscara volumizadora e alongadora com fórmula duradoura e cruelty-free",
-      preco: 49.90,
-      imagem: "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp",
-      freteGratis: true,
-      destaque: true
-    },
-    {
-      id: 2,
-      nome: "Eyeshadow Palette with Mirror",
-      descricao: "Paleta versátil de sombras com espelho embutido para maquiagem em movimento",
-      preco: 99.90,
-      imagem: "https://cdn.dummyjson.com/product-images/beauty/eyeshadow-palette-with-mirror/1.webp",
-      freteGratis: true,
-      destaque: true
-    },
-    {
-      id: 3,
-      nome: "Calvin Klein CK One",
-      descricao: "Fragrância unissex clássica, conhecida por seu aroma fresco e limpo",
-      preco: 249.90,
-      imagem: "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/1.webp",
-      freteGratis: false,
-      destaque: false
-    },
-    {
-      id: 4,
-      nome: "Chanel Coco Noir Eau De",
-      descricao: "Fragrância elegante e misteriosa com notas de toranja, rosa e sândalo",
-      preco: 649.90,
-      imagem: "https://cdn.dummyjson.com/product-images/fragrances/chanel-coco-noir-eau-de/1.webp",
-      freteGratis: true,
-      destaque: true
-    },
-    {
-      id: 5,
-      nome: "Gucci Bloom Eau de",
-      descricao: "Fragrância floral e cativante com notas de tuberosa, jasmim e Rangoon",
-      preco: 399.90,
-      imagem: "https://cdn.dummyjson.com/product-images/fragrances/gucci-bloom-eau-de/1.webp",
-      freteGratis: false,
-      destaque: false
-    },
-    {
-      id: 6,
-      nome: "Annibale Colombo Bed",
-      descricao: "Estrutura de cama luxuosa e elegante, feita com materiais de alta qualidade",
-      preco: 9499.90,
-      imagem: "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/1.webp",
-      freteGratis: true,
-      destaque: false
-    }
-  ];
+function Vitrine({ busca = '', categoria = 'all', categorias = [], setCategorias }) {
+  const [produtos, setProdutos] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState(null);
+  const vitrineRef = useRef(null);
+  const tituloRef = useRef(null);
+  const buscaAnterior = useRef('');
 
-  const produtosDestaque = produtos.filter(produto => produto.destaque);
+  useEffect(() => {
+    const buscarProdutos = async () => {
+      try {
+        setCarregando(true);
+        setErro(null);
+        
+        const resposta = await fetch('https://dummyjson.com/products?limit=30');
+        
+        if (!resposta.ok) {
+          throw new Error('Erro ao carregar produtos');
+        }
+        
+        const dados = await resposta.json();
+        setProdutos(dados.products);
+      } catch (error) {
+        setErro('Não foi possível carregar os produtos. Tente novamente mais tarde.');
+        console.error('Erro ao buscar produtos:', error);
+      } finally {
+        setCarregando(false);
+      }
+    };
+
+    buscarProdutos();
+  }, []);
+
+  useEffect(() => {
+    const buscarCategorias = async () => {
+      try {
+        const resposta = await fetch('https://dummyjson.com/products/categories');
+        const dados = await resposta.json();
+        setCategorias(dados);
+      } catch (error) {
+        console.error('Erro ao buscar categorias:', error);
+      }
+    };
+
+    buscarCategorias();
+  }, []);
+
+  const produtosFiltrados = produtos.filter(produto => {
+    const matchBusca = produto.title.toLowerCase().includes(busca.toLowerCase());
+    const matchCategoria = categoria === 'all' || produto.category === categoria;
+    return matchBusca && matchCategoria;
+  });
+
+  const produtosDestaque = produtos.slice(0, 3);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (busca && busca.trim() !== '') {
+        if (tituloRef.current) {
+          const headerHeight = 150;
+          const elementPosition = tituloRef.current.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+          
+          if (Math.abs(offsetPosition) > 10) {
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }
+      } else if (buscaAnterior.current && buscaAnterior.current.trim() !== '') {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+      
+      buscaAnterior.current = busca;
+    }, 50);
+
+    return () => clearTimeout(timer);
+  }, [busca]);
+
+  if (carregando) {
+    return (
+      <section className="vitrine">
+        <div className="vitrine-carregando">
+          <div className="spinner"></div>
+          <p>Carregando produtos...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (erro) {
+    return (
+      <section className="vitrine">
+        <div className="vitrine-erro">
+          <p>{erro}</p>
+          <button className="botao" onClick={() => window.location.reload()}>
+            Tentar Novamente
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  const getNomeCategoria = () => {
+    if (categoria === 'all') return 'Todas as Categorias';
+    const cat = categorias.find(c => c.slug === categoria);
+    return cat ? cat.name : 'Produtos';
+  };
 
   return (
-    <section className="vitrine">
-      <Carrossel produtos={produtosDestaque} />
+    <section className="vitrine" ref={vitrineRef}>
+      {!busca && produtosDestaque.length > 0 && <Carrossel produtos={produtosDestaque} />}
       
       <div className="vitrine-secao-produtos">
-        <h2>Todos os Produtos</h2>
-        <div className="vitrine-grid">
-          {produtos.map((produto) => (
-            <ProdutoCard key={produto.id} produto={produto} />
-          ))}
-        </div>
+        <h2 className="vitrine-titulo-categoria" ref={tituloRef}>{getNomeCategoria()}</h2>
+
+        {produtosFiltrados.length === 0 ? (
+          <div className="vitrine-vazio">
+            <p>Nenhum produto encontrado.</p>
+          </div>
+        ) : (
+          <div className="vitrine-grid">
+            {produtosFiltrados.map((produto) => (
+              <ProdutoCard key={produto.id} produto={produto} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

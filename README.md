@@ -20,18 +20,21 @@ Nesta primeira etapa, foi construída a estrutura visual da loja utilizando:
 ### Componentes Implementados
 
 - **Layout**: Estrutura comum da página usando props.children
-- **Cabecalho**: Topo da loja com navegação
+- **Cabecalho**: Topo da loja com navegação, busca e categorias dinâmicas
 - **Rodape**: Rodapé com informações do desenvolvedor
-- **Vitrine**: Lista de produtos usando .map()
+- **Vitrine**: Lista de produtos com integração API e filtros
 - **ProdutoCard**: Card de produto (composição de Selo + Botao)
+- **Carrossel**: Componente de carrossel automático de produtos
 - **Botao**: Componente genérico de botão
 - **Selo**: Etiqueta reutilizável (ex: "Frete Grátis")
 
 ## 🛠️ Tecnologias
 
 - React 19.2.6
+- React Router DOM 7.1.3
 - Vite 8.0.12
 - CSS3 (variáveis CSS customizadas)
+- DummyJSON API (dados de produtos e categorias)
 
 ## 📦 Instalação
 
@@ -52,15 +55,51 @@ npm run dev
 - **Cor Destaque**: Verde (#10b981)
 - **Layout**: Responsivo com grid adaptativo
 
+## 🌐 Etapa 2 - Integração com API (Semana 13)
+
+Nesta etapa, foi implementada a integração com a API DummyJSON e funcionalidades interativas:
+
+- ✅ Integração com API DummyJSON
+- ✅ Sistema de busca em tempo real
+- ✅ Filtro por categorias dinâmicas
+- ✅ Carrossel de produtos em destaque
+- ✅ Estados de carregamento e erro
+- ✅ Design responsivo (Desktop, Tablet, Mobile)
+- ✅ Dropdown adaptativo de categorias
+
+### Funcionalidades Implementadas
+
+- **Busca Dinâmica**: Campo de busca que filtra produtos em tempo real
+- **Categorias**: Sistema de categorias com dropdown "Mais" adaptativo por tamanho de tela
+- **Carrossel**: Exibição rotativa de produtos em destaque (6 segundos por slide)
+- **Responsividade**: Layout totalmente adaptável para diferentes dispositivos
+- **Scroll Inteligente**: Navegação automática para resultados de busca com debounce
+
+### 📱 Responsividade
+
+O sistema adapta automaticamente o número de categorias visíveis baseado na largura da tela:
+
+| Largura | Categorias Visíveis |
+|---------|---------------------|
+| ≥ 1200px | 6 categorias |
+| 900-1199px | 5 categorias |
+| 700-899px | 4 categorias |
+| 500-699px | 3 categorias |
+| < 500px | 2 categorias |
+
+- **Desktop**: Layout completo com todas as funcionalidades
+- **Tablet**: Layout adaptado com categorias reduzidas
+- **Mobile**: Interface otimizada com busca inline e categorias centralizadas
+
 ## 📝 Próximas Etapas
 
-- **Etapa 2 (Semana 13)**: Integração com API DummyJSON
-- **Etapa 3**: Navegação entre páginas
-- **Etapa 4**: Sistema de login
+- **Etapa 3**: Na próxima semana!
 
 ## 👨‍💻 Desenvolvedor
 
 * **Instituição:** Instituto Federal do Espírito Santo - Campus Alegre
 * **Curso:** Tecnologia em Análise e Desenvolvimento de Sistemas - EAD
+* **Disciplina:** Desenvolvimento Front End II
+* **Professor:** Cleziel Franzoni da Costa
 * **Aluno:** Oberdan Covre Gomes
 * **Matrícula:** 202502EADS0249

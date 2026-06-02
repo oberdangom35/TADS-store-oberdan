@@ -2,20 +2,22 @@ import Botao from './Botao';
 import Selo from './Selo';
 
 function ProdutoCard({ produto }) {
-  const precoFormatado = produto.preco.toLocaleString("pt-BR", {
+  const precoFormatado = produto.price.toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL"
   });
 
+  const freteGratis = produto.price < 100;
+
   return (
     <div className="produto-card">
       <div className="produto-imagem">
-        <img src={produto.imagem} alt={produto.nome} />
-        {produto.freteGratis && <Selo texto="Frete Grátis" cor="verde" />}
+        <img src={produto.thumbnail} alt={produto.title} />
+        {freteGratis && <Selo texto="Frete Grátis" cor="verde" />}
       </div>
       <div className="produto-info">
-        <h3>{produto.nome}</h3>
-        <p className="produto-descricao">{produto.descricao}</p>
+        <h3>{produto.title}</h3>
+        <p className="produto-descricao">{produto.description}</p>
         <p className="produto-preco">{precoFormatado}</p>
         <div className="produto-acoes">
           <Botao texto="Comprar" />

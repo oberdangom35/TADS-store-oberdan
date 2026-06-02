@@ -7,7 +7,7 @@ function Carrossel({ produtos }) {
   useEffect(() => {
     const intervalo = setInterval(() => {
       setIndiceAtual((prev) => (prev + 1) % produtos.length);
-    }, 4000);
+    }, 6000);
 
     return () => clearInterval(intervalo);
   }, [produtos.length]);
@@ -27,20 +27,18 @@ function Carrossel({ produtos }) {
   return (
     <div className="carrossel">
       <div className="carrossel-container">
-        <button className="carrossel-btn carrossel-btn-esquerda" onClick={slideAnterior}>
-          &lt;
-        </button>
+        <button className="carrossel-btn carrossel-btn-esquerda" onClick={slideAnterior} aria-label="Slide anterior"></button>
 
         <div className="carrossel-slide">
           <div className="carrossel-imagem">
-            <img src={produtos[indiceAtual].imagem} alt={produtos[indiceAtual].nome} />
+            <img src={produtos[indiceAtual].thumbnail} alt={produtos[indiceAtual].title} />
           </div>
           <div className="carrossel-info">
             <Selo texto="Produto em Destaque" cor="verde" />
-            <h2>{produtos[indiceAtual].nome}</h2>
-            <p>{produtos[indiceAtual].descricao}</p>
+            <h2>{produtos[indiceAtual].title}</h2>
+            <p>{produtos[indiceAtual].description}</p>
             <p className="carrossel-preco">
-              {produtos[indiceAtual].preco.toLocaleString("pt-BR", {
+              {produtos[indiceAtual].price.toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL"
               })}
@@ -51,9 +49,7 @@ function Carrossel({ produtos }) {
           </div>
         </div>
 
-        <button className="carrossel-btn carrossel-btn-direita" onClick={proximoSlide}>
-          &gt;
-        </button>
+        <button className="carrossel-btn carrossel-btn-direita" onClick={proximoSlide} aria-label="Próximo slide"></button>
       </div>
 
       <div className="carrossel-indicadores">

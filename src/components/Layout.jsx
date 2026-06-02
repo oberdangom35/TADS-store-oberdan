@@ -1,10 +1,16 @@
 import Cabecalho from './Cabecalho';
 import Rodape from './Rodape';
 
-function Layout({ children }) {
+function Layout({ children, busca, setBusca, categoria, setCategoria, categorias }) {
   return (
     <div className="layout">
-      <Cabecalho />
+      <Cabecalho 
+        busca={busca} 
+        setBusca={setBusca}
+        categoria={categoria}
+        setCategoria={setCategoria}
+        categorias={categorias}
+      />
       <main className="conteudo">
         {children}
       </main>
