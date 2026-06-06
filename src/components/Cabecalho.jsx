@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo/logo.png';
 
 function Cabecalho({ busca, setBusca, categoria, setCategoria, categorias }) {
+  const navigate = useNavigate();
   const [buscaAberta, setBuscaAberta] = useState(false);
   const [menuCategoriaAberto, setMenuCategoriaAberto] = useState(false);
   const [categoriasVisiveis, setCategoriasVisiveis] = useState([]);
@@ -23,6 +25,12 @@ function Cabecalho({ busca, setBusca, categoria, setCategoria, categorias }) {
 
   const toggleMenuCategoria = () => {
     setMenuCategoriaAberto(!menuCategoriaAberto);
+  };
+
+  const voltarHome = () => {
+    navigate('/');
+    setBusca('');
+    setCategoria('all');
   };
 
   useEffect(() => {
@@ -71,7 +79,7 @@ function Cabecalho({ busca, setBusca, categoria, setCategoria, categorias }) {
   return (
     <header className="cabecalho">
       <div className="cabecalho-container">
-        <div className="cabecalho-logo">
+        <div className="cabecalho-logo" onClick={voltarHome} style={{ cursor: 'pointer' }}>
           <img src={logo} alt="TADS Store - Oberdan" />
         </div>
         <nav>
