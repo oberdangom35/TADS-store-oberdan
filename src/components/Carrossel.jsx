@@ -7,7 +7,7 @@ function Carrossel({ produtos }) {
   useEffect(() => {
     const intervalo = setInterval(() => {
       setIndiceAtual((prev) => (prev + 1) % produtos.length);
-    }, 6000);
+    }, 4000);
 
     return () => clearInterval(intervalo);
   }, [produtos.length]);
@@ -16,19 +16,9 @@ function Carrossel({ produtos }) {
     setIndiceAtual(indice);
   };
 
-  const proximoSlide = () => {
-    setIndiceAtual((prev) => (prev + 1) % produtos.length);
-  };
-
-  const slideAnterior = () => {
-    setIndiceAtual((prev) => (prev - 1 + produtos.length) % produtos.length);
-  };
-
   return (
     <div className="carrossel">
       <div className="carrossel-container">
-        <button className="carrossel-btn carrossel-btn-esquerda" onClick={slideAnterior} aria-label="Slide anterior"></button>
-
         <div className="carrossel-slide">
           <div className="carrossel-imagem">
             <img src={produtos[indiceAtual].thumbnail} alt={produtos[indiceAtual].title} />
@@ -48,8 +38,6 @@ function Carrossel({ produtos }) {
             </div>
           </div>
         </div>
-
-        <button className="carrossel-btn carrossel-btn-direita" onClick={proximoSlide} aria-label="Próximo slide"></button>
       </div>
 
       <div className="carrossel-indicadores">

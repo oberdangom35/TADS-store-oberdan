@@ -41,11 +41,11 @@ function Cabecalho({ busca, setBusca, categoria, setCategoria, categorias }) {
       let maxVisiveis;
       
       if (larguraTela >= 1200) {
-        maxVisiveis = 6;
+        maxVisiveis = 7;
       } else if (larguraTela >= 900) {
-        maxVisiveis = 5;
+        maxVisiveis = 6;
       } else if (larguraTela >= 700) {
-        maxVisiveis = 4;
+        maxVisiveis = 5;
       } else if (larguraTela >= 500) {
         maxVisiveis = 3;
       } else {
