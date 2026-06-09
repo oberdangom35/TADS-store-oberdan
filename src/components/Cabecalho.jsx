@@ -1,14 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import logo from '../assets/images/logo/logo.png';
 
-function Cabecalho({ busca, setBusca, categoria, setCategoria, categorias }) {
-  const navigate = useNavigate();
-  const [buscaAberta, setBuscaAberta] = useState(false);
+function Cabecalho({ busca, setBusca, categoria, setCategoria, categorias, buscaAberta, setBuscaAberta }) {
   const [menuCategoriaAberto, setMenuCategoriaAberto] = useState(false);
   const [categoriasVisiveis, setCategoriasVisiveis] = useState([]);
   const [categoriasOcultas, setCategoriasOcultas] = useState([]);
   const categoriasRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleBusca = () => {
     setBuscaAberta(!buscaAberta);
@@ -18,9 +18,23 @@ function Cabecalho({ busca, setBusca, categoria, setCategoria, categorias }) {
     setBusca('');
   };
 
+  const handleBuscaChange = (e) => {
+    const novaBusca = e.target.value;
+    setBusca(novaBusca);
+    if (!buscaAberta) {
+      setBuscaAberta(true);
+    }
+    if (location.pathname !== '/') {
+      navigate('/');
+    }
+  };
+
   const selecionarCategoria = (slug) => {
     setCategoria(slug);
     setMenuCategoriaAberto(false);
+    if (location.pathname !== '/') {
+      navigate('/');
+    }
   };
 
   const toggleMenuCategoria = () => {
@@ -28,7 +42,6 @@ function Cabecalho({ busca, setBusca, categoria, setCategoria, categorias }) {
   };
 
   const voltarHome = () => {
-    navigate('/');
     setBusca('');
     setCategoria('all');
   };
@@ -76,12 +89,18 @@ function Cabecalho({ busca, setBusca, categoria, setCategoria, categorias }) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (busca && busca.length > 0) {
+      setBuscaAberta(true);
+    }
+  }, [busca]);
+
   return (
     <header className="cabecalho">
       <div className="cabecalho-container">
-        <div className="cabecalho-logo" onClick={voltarHome} style={{ cursor: 'pointer' }}>
+        <Link to="/" className="cabecalho-logo" onClick={voltarHome}>
           <img src={logo} alt="TADS Store - Oberdan" />
-        </div>
+        </Link>
         <nav>
           <ul>
             <li className="cabecalho-busca-item">
@@ -91,7 +110,7 @@ function Cabecalho({ busca, setBusca, categoria, setCategoria, categorias }) {
                     type="text"
                     placeholder="Buscar produtos..."
                     value={busca}
-                    onChange={(e) => setBusca(e.target.value)}
+                    onChange={handleBuscaChange}
                     className="cabecalho-busca-input"
                     autoFocus
                     autoComplete="off"

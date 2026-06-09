@@ -1,17 +1,7 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Layout from './Layout';
+import { Link } from 'react-router-dom';
+import Layout from '../components/Layout';
 
-function Erro404() {
-  const navigate = useNavigate();
-  const [busca, setBusca] = useState('');
-  const [categoria, setCategoria] = useState('all');
-  const [categorias, setCategorias] = useState([]);
-
-  const voltarHome = () => {
-    navigate('/');
-  };
-
+function Erro404({ busca, setBusca, categoria, setCategoria, categorias, buscaAberta, setBuscaAberta }) {
   return (
     <Layout 
       busca={busca}
@@ -19,6 +9,8 @@ function Erro404() {
       categoria={categoria}
       setCategoria={setCategoria}
       categorias={categorias}
+      buscaAberta={buscaAberta}
+      setBuscaAberta={setBuscaAberta}
     >
       <div className="erro404-container">
         <div className="erro404-conteudo">
@@ -45,7 +37,7 @@ function Erro404() {
 
           <div className="erro404-secao">
             <p className="erro404-texto">
-              O que você pode fazer por enquanto é voltar à página inicial <a href="#" onClick={(e) => { e.preventDefault(); voltarHome(); }} className="erro404-link">clicando aqui</a>.
+              O que você pode fazer por enquanto é voltar à página inicial <Link to="/" className="erro404-link">clicando aqui</Link>.
             </p>
           </div>
         </div>

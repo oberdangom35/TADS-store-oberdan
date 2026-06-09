@@ -55,7 +55,9 @@ function Vitrine({ busca = '', categoria = 'all', categorias = [], setCategorias
     return matchBusca && matchCategoria;
   });
 
-  const produtosDestaque = produtos.slice(0, 3);
+  const produtosDestaque = [...produtos]
+    .sort((a, b) => (b.discountPercentage || 0) - (a.discountPercentage || 0))
+    .slice(0, 3);
 
   useEffect(() => {
     const timer = setTimeout(() => {

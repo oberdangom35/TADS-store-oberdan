@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Botao from './Botao';
 import Selo from './Selo';
 
 function Carrossel({ produtos }) {
@@ -16,25 +18,29 @@ function Carrossel({ produtos }) {
     setIndiceAtual(indice);
   };
 
+  const produtoAtual = produtos[indiceAtual];
+
   return (
     <div className="carrossel">
       <div className="carrossel-container">
         <div className="carrossel-slide">
           <div className="carrossel-imagem">
-            <img src={produtos[indiceAtual].thumbnail} alt={produtos[indiceAtual].title} />
+            <img src={produtoAtual.thumbnail} alt={produtoAtual.title} />
           </div>
           <div className="carrossel-info">
             <Selo texto="Produto em Destaque" cor="verde" />
-            <h2>{produtos[indiceAtual].title}</h2>
-            <p>{produtos[indiceAtual].description}</p>
+            <h2>{produtoAtual.title}</h2>
+            <p>{produtoAtual.description}</p>
             <p className="carrossel-preco">
-              {produtos[indiceAtual].price.toLocaleString("pt-BR", {
+              {produtoAtual.price.toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL"
               })}
             </p>
             <div className="carrossel-acoes">
-              <button className="botao">Comprar Agora</button>
+              <Link to={`/produto/${produtoAtual.id}`}>
+                <Botao texto="Ver Detalhes" />
+              </Link>
             </div>
           </div>
         </div>

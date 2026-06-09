@@ -1,36 +1,53 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useState } from 'react'
-import Layout from './components/Layout'
-import Vitrine from './components/Vitrine'
-import Erro404 from './components/Erro404'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import ProdutoDetalhe from './pages/ProdutoDetalhe'
+import Erro404 from './pages/Erro404'
 import './App.css'
 
 function App() {
-  const [buscaGlobal, setBuscaGlobal] = useState('')
-  const [categoriaGlobal, setCategoriaGlobal] = useState('all')
-  const [categoriasGlobal, setCategoriasGlobal] = useState([])
+  const [busca, setBusca] = useState('');
+  const [categoria, setCategoria] = useState('all');
+  const [categorias, setCategorias] = useState([]);
+  const [buscaAberta, setBuscaAberta] = useState(false);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={
-          <Layout 
-            busca={buscaGlobal} 
-            setBusca={setBuscaGlobal}
-            categoria={categoriaGlobal}
-            setCategoria={setCategoriaGlobal}
-            categorias={categoriasGlobal}
-          >
-            <Vitrine 
-              busca={buscaGlobal}
-              categoria={categoriaGlobal}
-              setCategoria={setCategoriaGlobal}
-              categorias={categoriasGlobal}
-              setCategorias={setCategoriasGlobal}
-            />
-          </Layout>
+          <Home 
+            busca={busca}
+            setBusca={setBusca}
+            categoria={categoria}
+            setCategoria={setCategoria}
+            categorias={categorias}
+            setCategorias={setCategorias}
+            buscaAberta={buscaAberta}
+            setBuscaAberta={setBuscaAberta}
+          />
         } />
-        <Route path="*" element={<Erro404 />} />
+        <Route path="/produto/:id" element={
+          <ProdutoDetalhe 
+            busca={busca}
+            setBusca={setBusca}
+            categoria={categoria}
+            setCategoria={setCategoria}
+            categorias={categorias}
+            buscaAberta={buscaAberta}
+            setBuscaAberta={setBuscaAberta}
+          />
+        } />
+        <Route path="*" element={
+          <Erro404 
+            busca={busca}
+            setBusca={setBusca}
+            categoria={categoria}
+            setCategoria={setCategoria}
+            categorias={categorias}
+            buscaAberta={buscaAberta}
+            setBuscaAberta={setBuscaAberta}
+          />
+        } />
       </Routes>
     </BrowserRouter>
   )
