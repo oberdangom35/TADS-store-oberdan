@@ -13,7 +13,16 @@ Projeto Integrador desenvolvido como parte do curso TADS, implementando uma loja
 
 TADS Store é uma aplicação de e-commerce desenvolvida em etapas semanais, focando em boas práticas de desenvolvimento React, componentização e arquitetura escalável.
 
-## 🚀 Etapa 1 - Componentização (Semana 12)
+## �️ Tecnologias
+
+* React 19.2.6
+* React DOM 19.2.6
+* React Router DOM 6.28.0
+* Vite 8.0.12
+* CSS3 (variáveis CSS customizadas)
+* DummyJSON API (dados de produtos e categorias)
+
+## � Etapa 1 - Componentização (Semana 12)
 
 Nesta primeira etapa, foi construída a estrutura visual da loja utilizando:
 
@@ -34,15 +43,6 @@ Nesta primeira etapa, foi construída a estrutura visual da loja utilizando:
 * **Carrossel**: Componente de carrossel automático de produtos
 * **Botao**: Componente genérico de botão
 * **Selo**: Etiqueta reutilizável (ex: "Frete Grátis")
-
-## 🛠️ Tecnologias
-
-* React 19.2.6
-* React DOM 19.2.6
-* React Router DOM 6.28.0
-* Vite 8.0.12
-* CSS3 (variáveis CSS customizadas)
-* DummyJSON API (dados de produtos e categorias)
 
 ## 📦 Instalação
 
