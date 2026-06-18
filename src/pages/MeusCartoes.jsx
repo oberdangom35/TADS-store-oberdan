@@ -108,7 +108,7 @@ function MeusCartoes({ busca, setBusca, categoria, setCategoria, categorias, bus
                     <p>{usuario.bank.cardExpire || 'Não informado'}</p>
                   </div>
                   <div className="conta-campo">
-                    <label>Tipo de Cartão</label>
+                    <label>Bandeira do Cartão</label>
                     <p>{usuario.bank.cardType || 'Não informado'}</p>
                   </div>
                 </div>

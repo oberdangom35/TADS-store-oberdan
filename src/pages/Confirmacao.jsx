@@ -54,19 +54,11 @@ function Confirmacao({ busca, setBusca, categoria, setCategoria, categorias, bus
           <div className="confirmacao-info">
             <h3>Próximos Passos</h3>
             <ul>
-              <li>Em um sistema real, você receberia um e-mail de confirmação</li>
-              <li>O pedido seria processado e enviado para o endereço informado</li>
-              <li>Você poderia acompanhar o status da entrega</li>
+              <li>Em um sistema real, você receberia um e-mail de confirmação;</li>
+              <li>O pedido seria processado e enviado para o endereço informado;</li>
+              <li>Você poderia acompanhar o status do pagamento, da entrega, todo histórico 
+                de pedidos, na página <Link to="/meus-pedidos">Meus Pedidos.</Link>  </li>
             </ul>
-          </div>
-          
-          <div className="confirmacao-acoes">
-            <Link to="/" className="confirmacao-btn-principal">
-              Voltar para a Loja
-            </Link>
-            <Link to="/minha-conta" className="confirmacao-btn-secundario">
-              Ir para Minha Conta
-            </Link>
           </div>
         </div>
       </main>

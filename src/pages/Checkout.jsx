@@ -13,6 +13,9 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
   const todosFreteGratis = itens.length > 0 && itens.every(item => item.freteGratis === true);
   
   const [etapa, setEtapa] = useState('endereco');
+  const [tipoEndereco, setTipoEndereco] = useState(() => {
+    return localStorage.getItem('tads-store-tipo-endereco') || 'padrao';
+  });
   
   const [endereco, setEndereco] = useState({
     cep: '',
@@ -55,6 +58,10 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
       }));
     }
   }, [usuario]);
+
+  useEffect(() => {
+    localStorage.setItem('tads-store-tipo-endereco', tipoEndereco);
+  }, [tipoEndereco]);
 
   useEffect(() => {
     const buscarCep = async () => {
@@ -108,14 +115,43 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
     setEndereco({...endereco, cep: valorFormatado});
   };
 
+  const avancarParaPagamento = () => {
+    if (tipoEndereco === 'padrao') {
+      setEtapa('pagamento');
+      return;
+    }
+    
+    if (!endereco.cep || !endereco.rua || !endereco.numero || !endereco.bairro || !endereco.cidade || !endereco.estado) {
+      alert('Por favor, preencha todos os campos obrigatórios do endereço.');
+      return;
+    }
+    
+    setEtapa('pagamento');
+  };
+
   const handleEnderecoSubmit = (e) => {
     e.preventDefault();
-    setEtapa('pagamento');
+    avancarParaPagamento();
   };
 
   const handlePagamentoSubmit = (e) => {
     e.preventDefault();
-    navigate('/confirmacao');
+    
+    const enderecoFinal = tipoEndereco === 'padrao' 
+      ? {
+          rua: usuario?.address?.address || '',
+          cidade: usuario?.address?.city || '',
+          estado: usuario?.address?.state || '',
+          cep: usuario?.address?.postalCode || ''
+        }
+      : endereco;
+    
+    navigate('/confirmacao', {
+      state: {
+        endereco: enderecoFinal,
+        pagamento: pagamento
+      }
+    });
   };
 
   return (
@@ -158,6 +194,81 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
               <form onSubmit={handleEnderecoSubmit} className="checkout-form">
                 <h2>Endereço de Entrega</h2>
                 
+                <div className="checkout-tipo-endereco">
+                  <button
+                    type="button"
+                    className={tipoEndereco === 'padrao' ? 'ativo' : ''}
+                    onClick={() => setTipoEndereco('padrao')}
+                  >
+                    Endereço Padrão
+                  </button>
+                  <button
+                    type="button"
+                    className={tipoEndereco === 'outro' ? 'ativo' : ''}
+                    onClick={() => setTipoEndereco('outro')}
+                  >
+                    Outro Endereço
+                  </button>
+                </div>
+
+                {tipoEndereco === 'padrao' ? (
+                  <>
+                    <div className="checkout-campo-grupo">
+                      <div className="checkout-campo checkout-campo-pequeno">
+                        <label>CEP</label>
+                        <input
+                          type="text"
+                          value={usuario?.address?.postalCode || ''}
+                          disabled
+                          placeholder="Não informado"
+                        />
+                      </div>
+                      
+                      <div className="checkout-campo">
+                        <label>Rua</label>
+                        <input
+                          type="text"
+                          value={usuario?.address?.address || ''}
+                          disabled
+                          placeholder="Não informado"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="checkout-campo-grupo checkout-campo-grupo-tres">
+                      <div className="checkout-campo">
+                        <label>Bairro</label>
+                        <input
+                          type="text"
+                          value={usuario?.address?.address?.split(',')[1]?.trim() || 'Centro'}
+                          disabled
+                          placeholder="Não informado"
+                        />
+                      </div>
+                      
+                      <div className="checkout-campo">
+                        <label>Cidade</label>
+                        <input
+                          type="text"
+                          value={usuario?.address?.city || ''}
+                          disabled
+                          placeholder="Não informado"
+                        />
+                      </div>
+                      
+                      <div className="checkout-campo checkout-campo-pequeno">
+                        <label>Estado</label>
+                        <input
+                          type="text"
+                          value={usuario?.address?.state || ''}
+                          disabled
+                          placeholder="UF"
+                        />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
                 <div className="checkout-campo-grupo">
                   <div className="checkout-campo checkout-campo-pequeno">
                     <label htmlFor="cep">CEP</label>
@@ -252,6 +363,8 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                     />
                   </div>
                 </div>
+                  </>
+                )}
               </form>
             ) : (
               <form onSubmit={handlePagamentoSubmit} className="checkout-form">
@@ -295,7 +408,7 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                       </div>
                     </div>
                     
-                    <div className="checkout-campo-grupo">
+                    <div className="checkout-campo-grupo checkout-campo-grupo-tres">
                       <div className="checkout-campo">
                         <label htmlFor="validade">Validade</label>
                         <input
@@ -318,26 +431,26 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                           maxLength="3"
                         />
                       </div>
-                    </div>
-                    
-                    <div className="checkout-campo">
-                      <label htmlFor="parcelas">Parcelamento</label>
-                      <select
-                        id="parcelas"
-                        value={pagamento.parcelas}
-                        onChange={(e) => setPagamento({...pagamento, parcelas: parseInt(e.target.value)})}
-                        className="checkout-select"
-                      >
-                        {[...Array(10)].map((_, i) => {
-                          const numParcelas = i + 1;
-                          const valorParcela = (totalValor / numParcelas).toFixed(2);
-                          return (
-                            <option key={numParcelas} value={numParcelas}>
-                              {numParcelas}x de R$ {valorParcela}
-                            </option>
-                          );
-                        })}
-                      </select>
+                      
+                      <div className="checkout-campo">
+                        <label htmlFor="parcelas">Parcelamento</label>
+                        <select
+                          id="parcelas"
+                          value={pagamento.parcelas}
+                          onChange={(e) => setPagamento({...pagamento, parcelas: parseInt(e.target.value)})}
+                          className="checkout-select"
+                        >
+                          {[...Array(10)].map((_, i) => {
+                            const numParcelas = i + 1;
+                            const valorParcela = (totalValor / numParcelas).toFixed(2);
+                            return (
+                              <option key={numParcelas} value={numParcelas}>
+                                {numParcelas}x de R$ {valorParcela}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
                     </div>
                 </>
               </form>
@@ -384,7 +497,7 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
               <>
                 <button 
                   type="button" 
-                  onClick={handleEnderecoSubmit}
+                  onClick={avancarParaPagamento}
                   className="checkout-btn-proximo"
                 >
                   Continuar para Pagamento

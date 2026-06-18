@@ -90,12 +90,11 @@ function MeusPedidos({ busca, setBusca, categoria, setCategoria, categorias, bus
                   <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                 </svg>
                 <p><strong>Funcionalidade de Projeto Acadêmico</strong></p>
-                <p style={{ marginTop: '1rem', color: 'var(--cor-texto-secundario)', maxWidth: '500px', lineHeight: '1.6' }}>
+                <p style={{ marginTop: '1rem', color: 'var(--cor-texto-secundario)', maxWidth: '700px', textAlign: 'justify',lineHeight: '1.6' }}>
                   Em uma loja real, aqui seriam exibidos todos os seus pedidos realizados, 
                   permitindo acompanhar o status de entrega, rastrear encomendas, 
                   visualizar detalhes dos produtos comprados e histórico completo de compras.
                 </p>
-                <Link to="/" className="botao-ir-compras" style={{ marginTop: '1.5rem' }}>Ir às Compras</Link>
               </div>
             </div>
           </div>
