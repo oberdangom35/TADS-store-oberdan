@@ -912,16 +912,70 @@ body {
 .rodape {
   background-color: var(--cor-texto);
   color: white;
-  text-align: center;
   padding: 2rem;
   margin-top: auto;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.rodape > * {
+  max-width: 1900px;
+  margin: 0 auto;
+}
+
+.rodape-esquerda,
+.rodape-centro,
+.rodape-direita {
+  display: flex;
+  align-items: center;
+}
+
+.rodape-esquerda {
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+.rodape-centro {
+  justify-content: center;
+  text-align: center;
+  flex: 1;
+  white-space: nowrap;
+}
+
+.rodape-direita {
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.rodape-logo-ifes {
+  height: 72px;
+  width: auto;
+}
+
+.rodape-logo-github {
+  height: 42px;
+  width: auto;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.rodape-link-github {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.rodape-link-github:hover .rodape-logo-github {
+  transform: scale(1.1);
+  opacity: 0.8;
 }
 
 .rodape p {
   color: #94a3b8;
-  max-width: 1900px;
-  margin: 0 auto;
+  margin: 0;
+  font-size: 0.9375rem;
 }
 
 @media (max-width: 480px) {
@@ -3565,6 +3619,30 @@ body {
 
 /* Responsivo Carrinho, Checkout e Confirmação */
 @media (max-width: 768px) {
+  .rodape {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .rodape-esquerda,
+  .rodape-centro,
+  .rodape-direita {
+    justify-content: center;
+  }
+
+  .rodape-logo-ifes {
+    height: 35px;
+  }
+
+  .rodape-logo-github {
+    height: 28px;
+  }
+
+  .rodape p {
+    font-size: 0.875rem;
+  }
+
   .carrinho-conteudo,
   .checkout-conteudo {
     grid-template-columns: 1fr;
