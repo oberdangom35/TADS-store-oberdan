@@ -1,12 +1,13 @@
-import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import Cabecalho from '../components/Cabecalho';
 import Rodape from '../components/Rodape';
 
-function MinhaConta({ busca, setBusca, categoria, setCategoria, categorias, buscaAberta, setBuscaAberta }) {
+function MeusCartoes({ busca, setBusca, categoria, setCategoria, categorias, buscaAberta, setBuscaAberta }) {
   const { usuario } = useAuth();
-  const [mostrarSenha, setMostrarSenha] = useState(false);
+
+  console.log('Dados do usuário em MeusCartoes:', usuario);
+  console.log('Dados do banco:', usuario?.bank);
 
   const obterSaudacao = () => {
     const hora = new Date().getHours();
@@ -24,12 +25,6 @@ function MinhaConta({ busca, setBusca, categoria, setCategoria, categorias, busc
     : usuario?.firstName && usuario?.lastName 
     ? `${usuario.firstName} ${usuario.lastName}`
     : 'Não informado';
-
-  const dataNascimento = usuario?.birthDate 
-    ? new Date(usuario.birthDate).toLocaleDateString('pt-BR')
-    : 'Não informado';
-
-  const genero = usuario?.gender === 'female' ? 'Feminino' : usuario?.gender === 'male' ? 'Masculino' : usuario?.gender || 'Não informado';
 
   return (
     <div className="app-container">
@@ -65,7 +60,7 @@ function MinhaConta({ busca, setBusca, categoria, setCategoria, categorias, busc
 
         <div className="minha-conta-content">
           <aside className="conta-menu">
-            <Link to="/minha-conta" className="conta-menu-item ativo">
+            <Link to="/minha-conta" className="conta-menu-item">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
@@ -79,7 +74,7 @@ function MinhaConta({ busca, setBusca, categoria, setCategoria, categorias, busc
               </svg>
               Meus Endereços
             </Link>
-            <Link to="/meus-cartoes" className="conta-menu-item">
+            <Link to="/meus-cartoes" className="conta-menu-item ativo">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
                 <line x1="1" y1="10" x2="23" y2="10"></line>
@@ -97,61 +92,35 @@ function MinhaConta({ busca, setBusca, categoria, setCategoria, categorias, busc
 
           <div className="conta-dados-area">
             <div className="conta-secao">
-              <h2>Meus Dados</h2>
-              <div className="conta-dados-grid">
-                <div className="conta-campo">
-                  <label>Nome Completo</label>
-                  <p>{nomeCompleto}</p>
-                </div>
-                <div className="conta-campo">
-                  <label>Data de Nascimento</label>
-                  <p>{dataNascimento}</p>
-                </div>
-                <div className="conta-campo">
-                  <label>Idade</label>
-                  <p>{usuario?.age ? `${usuario.age} anos` : 'Não informado'}</p>
-                </div>
-                <div className="conta-campo">
-                  <label>Gênero</label>
-                  <p>{genero}</p>
-                </div>
-                <div className="conta-campo">
-                  <label>Email</label>
-                  <p>{usuario?.email || 'Não informado'}</p>
-                </div>
-                <div className="conta-campo">
-                  <label>Telefone</label>
-                  <p>{usuario?.phone || 'Não informado'}</p>
-                </div>
-                <div className="conta-campo">
-                  <label>Usuário</label>
-                  <p>{usuario?.username}</p>
-                </div>
-                <div className="conta-campo">
-                  <label>Senha</label>
-                  <div className="conta-senha-wrapper">
-                    <p>{mostrarSenha ? usuario?.password : (usuario?.password ? '•'.repeat(usuario.password.length) : '••••••••')}</p>
-                    <button 
-                      className="conta-toggle-senha"
-                      onClick={() => setMostrarSenha(!mostrarSenha)}
-                      type="button"
-                      title={mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'}
-                    >
-                      {mostrarSenha ? (
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-                          <line x1="1" y1="1" x2="23" y2="23"></line>
-                        </svg>
-                      ) : (
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                          <circle cx="12" cy="12" r="3"></circle>
-                        </svg>
-                      )}
-                    </button>
+              <h2>Meus Cartões</h2>
+              {usuario?.bank ? (
+                <div className="conta-dados-grid">
+                  <div className="conta-campo">
+                    <label>Número do Cartão</label>
+                    <p>{usuario.bank.cardNumber || 'Não informado'}</p>
+                  </div>
+                  <div className="conta-campo">
+                    <label>Nome no Cartão</label>
+                    <p>{nomeCompleto}</p>
+                  </div>
+                  <div className="conta-campo">
+                    <label>Validade</label>
+                    <p>{usuario.bank.cardExpire || 'Não informado'}</p>
+                  </div>
+                  <div className="conta-campo">
+                    <label>Tipo de Cartão</label>
+                    <p>{usuario.bank.cardType || 'Não informado'}</p>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className="conta-vazio">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                    <line x1="1" y1="10" x2="23" y2="10"></line>
+                  </svg>
+                  <p>Nenhum cartão cadastrado</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -162,4 +131,4 @@ function MinhaConta({ busca, setBusca, categoria, setCategoria, categorias, busc
   );
 }
 
-export default MinhaConta;
+export default MeusCartoes;

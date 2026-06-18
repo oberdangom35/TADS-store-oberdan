@@ -9,7 +9,7 @@ function Confirmacao({ busca, setBusca, categoria, setCategoria, categorias, bus
   
   useEffect(() => {
     limparCarrinho();
-  }, []);
+  }, [limparCarrinho]);
 
   return (
     <div className="app-container">

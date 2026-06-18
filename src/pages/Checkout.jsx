@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCarrinho } from '../contexts/CarrinhoContext';
+import { useAuth } from '../contexts/AuthContext';
 import Cabecalho from '../components/Cabecalho';
 import Rodape from '../components/Rodape';
 
 function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaAberta, setBuscaAberta }) {
   const { itens, totalValor } = useCarrinho();
+  const { usuario } = useAuth();
   const navigate = useNavigate();
   
   const todosFreteGratis = itens.length > 0 && itens.every(item => item.freteGratis === true);
@@ -35,23 +37,24 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
   });
 
   useEffect(() => {
-    const gerarDadosFicticios = () => {
-      const numeroCartao = Array.from({length: 16}, () => Math.floor(Math.random() * 10)).join('');
-      const numeroFormatado = numeroCartao.match(/.{1,4}/g).join(' ');
-      const mes = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0');
-      const ano = String(new Date().getFullYear() + Math.floor(Math.random() * 5)).slice(-2);
+    if (usuario?.bank) {
+      const nomeCompleto = usuario?.firstName && usuario?.maidenName && usuario?.lastName 
+        ? `${usuario.firstName} ${usuario.maidenName} ${usuario.lastName}`
+        : usuario?.firstName && usuario?.lastName 
+        ? `${usuario.firstName} ${usuario.lastName}`
+        : usuario?.firstName || '';
+      
       const cvv = String(Math.floor(Math.random() * 900) + 100);
       
       setPagamento(prev => ({
         ...prev,
-        numeroCartao: numeroFormatado,
-        validade: `${mes}/${ano}`,
+        numeroCartao: usuario.bank.cardNumber || '',
+        nomeCartao: nomeCompleto,
+        validade: usuario.bank.cardExpire || '',
         cvv: cvv
       }));
-    };
-    
-    gerarDadosFicticios();
-  }, []);
+    }
+  }, [usuario]);
 
   useEffect(() => {
     const buscarCep = async () => {
@@ -265,21 +268,9 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                     />
                     <span>Cartão de Crédito</span>
                   </label>
-                  
-                  <label className="checkout-radio">
-                    <input
-                      type="radio"
-                      name="tipoPagamento"
-                      value="pix"
-                      checked={pagamento.tipo === 'pix'}
-                      onChange={(e) => setPagamento({...pagamento, tipo: e.target.value})}
-                    />
-                    <span>PIX</span>
-                  </label>
                 </div>
                 
-                {pagamento.tipo === 'cartao' && (
-                  <>
+                <>
                     <div className="checkout-campo-grupo">
                       <div className="checkout-campo checkout-campo-cartao">
                         <label htmlFor="numeroCartao">Número do Cartão</label>
@@ -348,8 +339,7 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                         })}
                       </select>
                     </div>
-                  </>
-                )}
+                </>
               </form>
             )}
           </div>

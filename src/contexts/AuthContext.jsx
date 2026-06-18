@@ -112,15 +112,26 @@ export function AuthProvider({ children }) {
 
       const dados = await resposta.json();
       
+      const respostaUsuario = await fetch(`https://dummyjson.com/users/${dados.id}`);
+      const dadosCompletos = await respostaUsuario.json();
+      
       localStorage.setItem('tads-store-token', dados.accessToken);
       localStorage.setItem('tads-store-refresh-token', dados.refreshToken);
       localStorage.setItem('tads-store-user', JSON.stringify({
-        id: dados.id,
-        username: dados.username,
-        email: dados.email,
-        firstName: dados.firstName,
-        lastName: dados.lastName,
-        image: dados.image
+        id: dadosCompletos.id,
+        username: dadosCompletos.username,
+        email: dadosCompletos.email,
+        firstName: dadosCompletos.firstName,
+        lastName: dadosCompletos.lastName,
+        maidenName: dadosCompletos.maidenName,
+        age: dadosCompletos.age,
+        gender: dadosCompletos.gender,
+        phone: dadosCompletos.phone,
+        birthDate: dadosCompletos.birthDate,
+        image: dadosCompletos.image,
+        password: dadosCompletos.password,
+        address: dadosCompletos.address,
+        bank: dadosCompletos.bank
       }));
       
       const expiracao = Date.now() + INACTIVITY_TIMEOUT;
@@ -128,12 +139,20 @@ export function AuthProvider({ children }) {
       
       setLogado(true);
       setUsuario({
-        id: dados.id,
-        username: dados.username,
-        email: dados.email,
-        firstName: dados.firstName,
-        lastName: dados.lastName,
-        image: dados.image
+        id: dadosCompletos.id,
+        username: dadosCompletos.username,
+        email: dadosCompletos.email,
+        firstName: dadosCompletos.firstName,
+        lastName: dadosCompletos.lastName,
+        maidenName: dadosCompletos.maidenName,
+        age: dadosCompletos.age,
+        gender: dadosCompletos.gender,
+        phone: dadosCompletos.phone,
+        birthDate: dadosCompletos.birthDate,
+        image: dadosCompletos.image,
+        password: dadosCompletos.password,
+        address: dadosCompletos.address,
+        bank: dadosCompletos.bank
       });
       
       renovarExpiracao();

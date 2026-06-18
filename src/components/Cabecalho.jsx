@@ -196,7 +196,10 @@ function Cabecalho({ busca, setBusca, categoria, setCategoria, categorias, busca
                       </button>
                       <button 
                         className="cabecalho-usuario-item"
-                        onClick={() => setMenuUsuarioAberto(false)}
+                        onClick={() => {
+                          setMenuUsuarioAberto(false);
+                          navigate('/meus-pedidos');
+                        }}
                       >
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>

@@ -4,6 +4,9 @@ import Home from './pages/Home'
 import ProdutoDetalhe from './pages/ProdutoDetalhe'
 import Login from './pages/Login'
 import MinhaConta from './pages/MinhaConta'
+import MeusEnderecos from './pages/MeusEnderecos'
+import MeusCartoes from './pages/MeusCartoes'
+import MeusPedidos from './pages/MeusPedidos'
 import Carrinho from './pages/Carrinho'
 import Checkout from './pages/Checkout'
 import Confirmacao from './pages/Confirmacao'
@@ -57,6 +60,45 @@ function App() {
         <Route path="/minha-conta" element={
           <RotaProtegida>
             <MinhaConta 
+              busca={busca}
+              setBusca={setBusca}
+              categoria={categoria}
+              setCategoria={setCategoria}
+              categorias={categorias}
+              buscaAberta={buscaAberta}
+              setBuscaAberta={setBuscaAberta}
+            />
+          </RotaProtegida>
+        } />
+        <Route path="/meus-enderecos" element={
+          <RotaProtegida>
+            <MeusEnderecos 
+              busca={busca}
+              setBusca={setBusca}
+              categoria={categoria}
+              setCategoria={setCategoria}
+              categorias={categorias}
+              buscaAberta={buscaAberta}
+              setBuscaAberta={setBuscaAberta}
+            />
+          </RotaProtegida>
+        } />
+        <Route path="/meus-cartoes" element={
+          <RotaProtegida>
+            <MeusCartoes 
+              busca={busca}
+              setBusca={setBusca}
+              categoria={categoria}
+              setCategoria={setCategoria}
+              categorias={categorias}
+              buscaAberta={buscaAberta}
+              setBuscaAberta={setBuscaAberta}
+            />
+          </RotaProtegida>
+        } />
+        <Route path="/meus-pedidos" element={
+          <RotaProtegida>
+            <MeusPedidos 
               busca={busca}
               setBusca={setBusca}
               categoria={categoria}
