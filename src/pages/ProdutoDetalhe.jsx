@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useCarrinho } from '../contexts/CarrinhoContext';
 import Layout from '../components/Layout';
 import Selo from '../components/Selo';
 
 function ProdutoDetalhe({ busca, setBusca, categoria, setCategoria, categorias, buscaAberta, setBuscaAberta }) {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { adicionarAoCarrinho } = useCarrinho();
   const [produto, setProduto] = useState(null);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState(null);
@@ -34,6 +37,37 @@ function ProdutoDetalhe({ busca, setBusca, categoria, setCategoria, categorias, 
 
     buscarProduto();
   }, [id]);
+
+  const handleAdicionarCarrinho = () => {
+    if (produto) {
+      const freteGratis = produto.price < 100;
+      const produtoCarrinho = {
+        id: produto.id,
+        title: produto.title,
+        price: `$${produto.price}`,
+        image: produto.thumbnail,
+        category: produto.category,
+        freteGratis: freteGratis
+      };
+      adicionarAoCarrinho(produtoCarrinho);
+    }
+  };
+
+  const handleComprar = () => {
+    if (produto) {
+      const freteGratis = produto.price < 100;
+      const produtoCarrinho = {
+        id: produto.id,
+        title: produto.title,
+        price: `$${produto.price}`,
+        image: produto.thumbnail,
+        category: produto.category,
+        freteGratis: freteGratis
+      };
+      adicionarAoCarrinho(produtoCarrinho);
+      navigate('/carrinho');
+    }
+  };
 
   if (carregando) {
     return (
@@ -156,8 +190,8 @@ function ProdutoDetalhe({ busca, setBusca, categoria, setCategoria, categorias, 
                   <div className="produto-detalhe-preco-e-acoes">
                     <p className="produto-detalhe-preco">{precoFormatado}</p>
                     <div className="produto-detalhe-acoes">
-                      <button className="botao">Comprar</button>
-                      <button className="botao botao-secundario">Carrinho</button>
+                      <button onClick={handleComprar} className="botao">Comprar</button>
+                      <button onClick={handleAdicionarCarrinho} className="botao botao-secundario">Carrinho</button>
                     </div>
                   </div>
                 </div>

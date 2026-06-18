@@ -1,6 +1,6 @@
 # TADS Store - Oberdan
 
-**Versão Atual:** 1.3.17
+**Versão Atual:** 1.4.0
 
 Projeto Integrador desenvolvido como parte do curso TADS, implementando uma loja virtual moderna com React e Vite.
 
@@ -8,6 +8,7 @@ Projeto Integrador desenvolvido como parte do curso TADS, implementando uma loja
 - v1.1.x — Etapa 1 (Componentização)
 - v1.2.x — Etapa 2 (Integração com API)
 - v1.3.x — Etapa 3 (SPA com React Router)
+- v1.4.x — Etapa 4 (Autenticação e Controle de Acesso)
 
 ## 📋 Sobre o Projeto
 
@@ -138,7 +139,42 @@ Nesta etapa, foi implementada a navegação SPA (Single Page Application) com m�
 * **Tablet**: Layout adaptado com empilhamento
 * **Mobile**: Visualização sequencial otimizada
 
-## 👨‍💻 Desenvolvedor
+## � Etapa 4 - Autenticação e Controle de Acesso (Semana 15)
+
+Nesta etapa final, foi implementado o sistema de autenticação simulada com Context API, rotas protegidas e controle de acesso:
+
+* ✅ AuthContext com estado global de autenticação
+* ✅ Sistema de login simulado (front-end only)
+* ✅ Persistência de sessão no localStorage
+* ✅ Rotas protegidas com redirecionamento automático
+* ✅ Controle de visualização no cabeçalho (Entrar/Sair)
+* ✅ Página "Minha Conta" exclusiva para usuários logados
+
+### Páginas de Autenticação
+
+* **Login (/login)**: Formulário de autenticação com validação
+* **Minha Conta (/minha-conta)**: Área restrita para usuários autenticados (protegida por RotaPrivada)
+
+### Credenciais de Teste
+
+Para testar o sistema de login, utilize:
+
+| Campo    | Valor  |
+| -------- | ------ |
+| Usuário  | `aluno` |
+| Senha    | `1234` |
+
+### Fluxo de Autenticação
+
+1. Usuário não logado tenta acessar `/minha-conta`
+2. RotaPrivada detecta ausência de autenticação
+3. Redirecionamento automático para `/login`
+4. Após login bem-sucedido, sessão salva no localStorage
+5. Usuário redirecionado para `/minha-conta`
+6. Cabeçalho atualiza dinamicamente (mostra ícone de "Sair")
+7. Logout remove sessão e redireciona para home
+
+## �👨‍💻 Desenvolvedor
 
 * **Instituição:** Instituto Federal do Espírito Santo - Campus Alegre
 * **Curso:** Tecnologia em Análise e Desenvolvimento de Sistemas - EAD
