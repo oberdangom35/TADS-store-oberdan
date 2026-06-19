@@ -14,6 +14,9 @@ Projeto Integrador desenvolvido como parte do curso TADS, implementando uma loja
 
 TADS Store é uma aplicação de e-commerce desenvolvida em etapas semanais, focando em boas práticas de desenvolvimento React, componentização e arquitetura escalável.
 
+📄 **Documentação de uso da TADS Store by Oberdan:**
+ [`public/docs/DOCUMENTACAO.md`](./public/docs/DOCUMENTACAO.md)
+
 ## Tecnologias
 
 * React 19.2.6
@@ -283,6 +286,5 @@ O sistema atual demonstra o **fluxo completo de autenticação** e **gerenciamen
 * **Instituição:** Instituto Federal do Espírito Santo - Campus Alegre
 * **Curso:** Tecnologia em Análise e Desenvolvimento de Sistemas - EAD
 * **Disciplina:** Desenvolvimento Front End II
-* **Professor:** Cleziel Franzoni da Costa
 * **Aluno:** Oberdan Covre Gomes
 * **Matrícula:** 202502EADS0249
