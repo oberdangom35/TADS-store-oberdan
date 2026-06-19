@@ -87,7 +87,7 @@ Os produtos são carregados dinamicamente pela API DummyJSON utilizando `useEffe
 
 ---
 
-## 2. Detalhe do Produto
+## 2. Página de detalhes do Produto
 
 Ao clicar em um produto da vitrine o sistema navega para a rota:
 
@@ -117,6 +117,8 @@ A autenticação utiliza a API DummyJSON através da rota `POST /auth/login`. Ap
 
 A área Minha Conta somente pode ser acessada por usuários autenticados. Caso o usuário não esteja autenticado, o sistema redireciona automaticamente para a tela de login. A área de conta conta com as páginas Meus Dados, Meus Endereços, Meus Cartões e Meus Pedidos, todas protegidas pelo componente `RotaProtegida`.
 
+O sistema conta ainda com uma proteção adicional de sessão inativa, onde o usuário é automaticamente deslogado após 10 minutos de inatividade, feita através da captura de eventos de mouse e teclado.
+
 **Imagem:**
 
 ![Minha Conta - Meus Dados](./imagens/paginaminhacontameusdados.png)
@@ -132,7 +134,7 @@ A área Minha Conta somente pode ser acessada por usuários autenticados. Caso o
 
 ---
 
-## 6. Carrinho e Fluxo de Compra
+## 5. Carrinho e Fluxo de Compra
 
 O sistema possui carrinho persistente permitindo:
 
@@ -141,7 +143,7 @@ O sistema possui carrinho persistente permitindo:
 - Alterar quantidades
 - Calcular subtotal
 - Calcular total
-- Indicativo de frete grátis
+- Visualizar o indicativo de frete grátis
 
 O carrinho utiliza Context API para compartilhamento de estado entre as páginas e persiste os dados no `localStorage` para que os itens não sejam perdidos ao recarregar a aplicação.
 
@@ -149,18 +151,19 @@ O carrinho utiliza Context API para compartilhamento de estado entre as páginas
 
 ![Carrinho com Produtos](./imagens/paginacarrinhoprodutos.png)
 
-** Caso não haja produtos no carrinho:**
+**Caso não haja produtos no carrinho:**
 ![Carrinho Vazio](./imagens/paginacarrinhovazio.png)
 
 ---
 
-## 7. Checkout
+## 6. Checkout
 
 Durante o checkout o usuário pode:
 
 - Confirmar os itens e quantidades
 - Utilizar o endereço padrão da API DummyJSON ou escolher outro endereço pela API ViaCEP
 - Informar os dados de pagamento
+- Confirmar o pedido
 
 Na etapa de endereço, o sistema oferece ainda duas opções: utilizar o endereço padrão carregado automaticamente da API DummyJSON ou informar um novo endereço. Ao digitar o CEP no formulário de outro endereço, o endereço é preenchido automaticamente através da API ViaCEP. A etapa de pagamento utiliza os dados do cartão do usuário logado, trazidos da API DummyJSON, e permite parcelamento em até 10 vezes sem juros.
 
@@ -174,7 +177,7 @@ Na etapa de endereço, o sistema oferece ainda duas opções: utilizar o endere�
 
 ---
 
-## 8. Confirmação de Pedido
+## 7. Confirmação de Pedido
 
 Após a finalização do pagamento, o sistema exibe a página de confirmação da compra, apresenta uma mensagem de sucesso, limpa automaticamente o carrinho e oferece um link para a página de Meus Pedidos.
 
@@ -182,12 +185,13 @@ Após a finalização do pagamento, o sistema exibe a página de confirmação d
 
 ![Confirmação de Compra](./imagens/paginaconfirmacaocompra.png)
 
-** Navegando para Meus Pedidos:**
+**Navegando para Meus Pedidos:**
+
 ![Meus Pedidos](./imagens/paginameuspedidos.png)
 
 ---
 
-## 9. Página 404
+## 8. Página 404
 
 Quando uma rota inexistente é acessada, o sistema exibe uma página personalizada de erro 404, com uma mensagem amigável e um link para retornar à página inicial.
 
@@ -197,7 +201,7 @@ Quando uma rota inexistente é acessada, o sistema exibe uma página personaliza
 
 ---
 
-## 10. Responsividade (Bônus)
+## 9. Responsividade (Bônus)
 
 A aplicação foi adaptada para dispositivos móveis utilizando CSS responsivo. O layout se ajusta automaticamente para diferentes tamanhos de tela, reorganizando o menu de categorias, a vitrine de produtos, o cabeçalho e a área de conta.
 
@@ -209,7 +213,7 @@ A aplicação foi adaptada para dispositivos móveis utilizando CSS responsivo. 
 
 ---
 
-## 11. Funcionalidades Extras Implementadas
+## 10. Funcionalidades Extras Implementadas
 
 Além dos requisitos mínimos foram implementados:
 
@@ -223,7 +227,7 @@ Além dos requisitos mínimos foram implementados:
 - Responsividade mobile
 - Deploy online na Netlify
 
-## 👨‍💻 Desenvolvedor
+## 👨‍💻 Informações do Desenvolvedor
 
 * **Instituição:** Instituto Federal do Espírito Santo - Campus Alegre
 * **Curso:** Tecnologia em Análise e Desenvolvimento de Sistemas - EAD
