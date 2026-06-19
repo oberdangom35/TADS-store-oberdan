@@ -56,21 +56,7 @@ O sistema utiliza usuários reais da API DummyJSON. Exemplos de credenciais vál
 
 ---
 
-## 1. Credenciais de Teste
-
-O sistema utiliza usuários reais da API DummyJSON. Exemplos de credenciais válidas:
-
-| Usuário | Senha | Nome Completo |
-| ------------ | ------------ | ---------------- |
-| `emilys` | `emilyspass` | Emily Johnson |
-| `michaelw` | `michaelwpass` | Michael Williams |
-| `sophiab` | `sophiabpass` | Sophia Brown |
-
-Mais usuários disponíveis em: [DummyJSON Users](https://dummyjson.com/users)
-
----
-
-## 2. Tela Inicial (Catálogo)
+## 1. Tela Inicial (Catálogo)
 
 A tela inicial apresenta:
 
@@ -95,9 +81,13 @@ Os produtos são carregados dinamicamente pela API DummyJSON utilizando `useEffe
 
 ![Resultado de Busca](./imagens/resultadobusca.png)
 
+**Resultado de busca quando produto não é encontrado:**
+
+![Resultado de Busca Não Encontrado](./imagens/resultadobuscanaoencontrado.png)
+
 ---
 
-## 3. Detalhe do Produto
+## 2. Detalhe do Produto
 
 Ao clicar em um produto da vitrine o sistema navega para a rota:
 
@@ -113,7 +103,7 @@ O produto é carregado dinamicamente pela API DummyJSON utilizando o ID informad
 
 ---
 
-## 4. Login e Autenticação
+## 3. Login e Autenticação
 
 A autenticação utiliza a API DummyJSON através da rota `POST /auth/login`. Após o login, o usuário é armazenado em contexto global através do `AuthContext`. A sessão é persistida no `localStorage` com os tokens de acesso e as informações do usuário, permitindo acesso às áreas protegidas e mantendo o estado entre atualizações de página.
 
@@ -123,7 +113,7 @@ A autenticação utiliza a API DummyJSON através da rota `POST /auth/login`. Ap
 
 ---
 
-## 5. Área Protegida (Minha Conta)
+## 4. Área Protegida (Minha Conta)
 
 A área Minha Conta somente pode ser acessada por usuários autenticados. Caso o usuário não esteja autenticado, o sistema redireciona automaticamente para a tela de login. A área de conta conta com as páginas Meus Dados, Meus Endereços, Meus Cartões e Meus Pedidos, todas protegidas pelo componente `RotaProtegida`.
 
@@ -135,7 +125,6 @@ A área Minha Conta somente pode ser acessada por usuários autenticados. Caso o
 
 ![Minha Conta - Meus Cartões](./imagens/paginaminhacontameuscartoes.png)
 
-![Minha Conta - Meus Pedidos](./imagens/paginaminhacontameuspedidos.png)
 
 **Dropdown do usuário logado no cabeçalho:**
 
@@ -160,19 +149,20 @@ O carrinho utiliza Context API para compartilhamento de estado entre as páginas
 
 ![Carrinho com Produtos](./imagens/paginacarrinhoprodutos.png)
 
+** Caso não haja produtos no carrinho:**
 ![Carrinho Vazio](./imagens/paginacarrinhovazio.png)
 
 ---
 
 ## 7. Checkout
 
-Durante o checkout o usuário informa:
+Durante o checkout o usuário pode:
 
-- Confirma os itens e quantidades
-- Utiliza o endereço padrão da API DummyJSON ou escolhe outro endereço pela API ViaCEP
-- Informa os dados de pagamento
+- Confirmar os itens e quantidades
+- Utilizar o endereço padrão da API DummyJSON ou escolher outro endereço pela API ViaCEP
+- Informar os dados de pagamento
 
-Na etapa de endereço, o sistema oferece duas opções: utilizar o endereço padrão carregado automaticamente da API DummyJSON ou informar um novo endereço. Ao digitar o CEP no formulário de outro endereço, o endereço é preenchido automaticamente através da API ViaCEP. A etapa de pagamento utiliza os dados do cartão do usuário logado, trazidos da API DummyJSON, e permite parcelamento em até 10 vezes sem juros.
+Na etapa de endereço, o sistema oferece ainda duas opções: utilizar o endereço padrão carregado automaticamente da API DummyJSON ou informar um novo endereço. Ao digitar o CEP no formulário de outro endereço, o endereço é preenchido automaticamente através da API ViaCEP. A etapa de pagamento utiliza os dados do cartão do usuário logado, trazidos da API DummyJSON, e permite parcelamento em até 10 vezes sem juros.
 
 **Imagem:**
 
@@ -191,6 +181,9 @@ Após a finalização do pagamento, o sistema exibe a página de confirmação d
 **Imagem:**
 
 ![Confirmação de Compra](./imagens/paginaconfirmacaocompra.png)
+
+** Navegando para Meus Pedidos:**
+![Meus Pedidos](./imagens/paginameuspedidos.png)
 
 ---
 
