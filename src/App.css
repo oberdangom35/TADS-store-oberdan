@@ -3056,6 +3056,10 @@ body {
   color: var(--cor-primaria);
 }
 
+.asterisco-vermelho {
+    color: red;
+}
+
 .checkout-etapa.concluida,
 .checkout-etapa-concluida {
   color: var(--cor-destaque);

@@ -271,7 +271,7 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                   <>
                 <div className="checkout-campo-grupo">
                   <div className="checkout-campo checkout-campo-pequeno">
-                    <label htmlFor="cep">CEP</label>
+                    <label htmlFor="cep">CEP<span class="asterisco-vermelho">*</span></label>
                     <input
                       id="cep"
                       type="text"
@@ -286,7 +286,7 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                   </div>
                   
                   <div className="checkout-campo">
-                    <label htmlFor="rua">Rua</label>
+                    <label htmlFor="rua">Rua<span class="asterisco-vermelho">*</span></label>
                     <input
                       id="rua"
                       type="text"
@@ -301,7 +301,7 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                 <div className="checkout-campo-grupo">
                   
                   <div className="checkout-campo checkout-campo-pequeno">
-                    <label htmlFor="numero">Número</label>
+                    <label htmlFor="numero">Número<span class="asterisco-vermelho">*</span></label>
                     <input
                       id="numero"
                       type="text"
@@ -325,7 +325,7 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                 
                 <div className="checkout-campo-grupo checkout-campo-grupo-tres">
                   <div className="checkout-campo">
-                    <label htmlFor="bairro">Bairro</label>
+                    <label htmlFor="bairro">Bairro<span class="asterisco-vermelho">*</span></label>
                     <input
                       id="bairro"
                       type="text"
@@ -337,7 +337,7 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                   </div>
                   
                   <div className="checkout-campo">
-                    <label htmlFor="cidade">Cidade</label>
+                    <label htmlFor="cidade">Cidade<span class="asterisco-vermelho">*</span></label>
                     <input
                       id="cidade"
                       type="text"
@@ -349,7 +349,7 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                   </div>
                   
                   <div className="checkout-campo checkout-campo-pequeno">
-                    <label htmlFor="estado">Estado</label>
+                    <label htmlFor="estado">Estado<span class="asterisco-vermelho">*</span></label>
                     <input
                       id="estado"
                       type="text"
@@ -386,7 +386,7 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                 <>
                     <div className="checkout-campo-grupo">
                       <div className="checkout-campo checkout-campo-cartao">
-                        <label htmlFor="numeroCartao">Número do Cartão</label>
+                        <label htmlFor="numeroCartao">Número do Cartão<span class="asterisco-vermelho">*</span></label>
                         <input
                           id="numeroCartao"
                           type="text"
@@ -397,7 +397,7 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                       </div>
                       
                       <div className="checkout-campo">
-                        <label htmlFor="nomeCartao">Nome no Cartão</label>
+                        <label htmlFor="nomeCartao">Nome no Cartão<span class="asterisco-vermelho">*</span></label>
                         <input
                           id="nomeCartao"
                           type="text"
@@ -410,7 +410,7 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                     
                     <div className="checkout-campo-grupo checkout-campo-grupo-tres">
                       <div className="checkout-campo">
-                        <label htmlFor="validade">Validade</label>
+                        <label htmlFor="validade">Validade<span class="asterisco-vermelho">*</span></label>
                         <input
                           id="validade"
                           type="text"
@@ -421,7 +421,7 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                       </div>
                       
                       <div className="checkout-campo checkout-campo-pequeno">
-                        <label htmlFor="cvv">CVV</label>
+                        <label htmlFor="cvv">CVV<span class="asterisco-vermelho">*</span></label>
                         <input
                           id="cvv"
                           type="text"
@@ -433,7 +433,7 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
                       </div>
                       
                       <div className="checkout-campo">
-                        <label htmlFor="parcelas">Parcelamento</label>
+                        <label htmlFor="parcelas">Parcelamento<span class="asterisco-vermelho">*</span></label>
                         <select
                           id="parcelas"
                           value={pagamento.parcelas}
