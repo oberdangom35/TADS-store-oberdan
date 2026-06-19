@@ -187,7 +187,7 @@ Após a finalização do pagamento, o sistema exibe a página de confirmação d
 
 **Navegando para Meus Pedidos:**
 
-![Meus Pedidos](./imagens/paginameuspedidos.png)
+![Meus Pedidos](./imagens/paginaminhacontameuspedidos.png)
 
 ---
 
