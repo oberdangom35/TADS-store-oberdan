@@ -100,15 +100,27 @@ Nesta etapa, foi implementada a integração com a API DummyJSON e funcionalidad
 
 ### 📱 Responsividade
 
-O sistema adapta automaticamente o número de categorias visíveis baseado na largura da tela:
+O sistema utiliza um **algoritmo dinâmico** que calcula automaticamente o número de categorias visíveis baseado em:
 
-| Largura    | Categorias Visíveis |
-| ---------- | ------------------- |
-| ≥ 1200px   | 6 categorias        |
-| 900-1199px | 5 categorias        |
-| 700-899px  | 4 categorias        |
-| 500-699px  | 3 categorias        |
-| < 500px    | 2 categorias        |
+* **Espaço disponível na tela** (52% da largura total)
+* **Tamanho real dos textos** das categorias (número de caracteres)
+* **DPR (Device Pixel Ratio)** para suportar telas de alta resolução
+
+#### Breakpoints de Otimização:
+
+| Faixa de Largura | Ajuste Aplicado |
+| ---------------- | --------------- |
+| ≤ 400px | Valores compactos para smartphones pequenos |
+| 401-480px | Otimizado para smartphones médios |
+| 481-709px | Otimizado para smartphones grandes |
+| 710-1024px | **Valores otimizados para tablets** (iPad, Galaxy Tab) |
+| > 1024px | Layout completo para desktops |
+
+**Vantagens da abordagem:**
+* ✅ Adapta-se ao tamanho real dos nomes das categorias
+* ✅ Funciona em qualquer resolução e DPR
+* ✅ Nunca quebra o layout, mesmo com categorias longas
+* ✅ Menu alinhado à esquerda para melhor visualização
 
 * **Desktop**: Layout completo com todas as funcionalidades
 * **Tablet**: Layout adaptado com categorias reduzidas
@@ -281,7 +293,45 @@ O sistema utiliza usuários reais da API DummyJSON. Exemplos de credenciais vál
 
 O sistema atual demonstra o **fluxo completo de autenticação** e **gerenciamento de sessão** no front-end, preparando para integração futura com back-end real.
 
-## 👨‍💻 Desenvolvedor
+## 🚀 Deploy e Build de Produção (Semana 16)
+
+### Build de Produção
+
+Para gerar a versão otimizada para produção:
+
+```bash
+npm run build
+```
+
+Isso criará a pasta `dist/` com os arquivos otimizados e minificados.
+
+### Deploy na Netlify
+
+1. Faça login na [Netlify](https://www.netlify.com/)
+2. Clique em "Add new site" → "Import an existing project"
+3. Conecte seu repositório GitHub
+4. Configure:
+   * **Build command:** `npm run build`
+   * **Publish directory:** `dist`
+5. Deploy automático!
+
+**Arquivo de redirecionamento:** O projeto inclui `public/_redirects` para garantir que as rotas do React Router funcionem corretamente em produção.
+
+### ✅ Checklist de Deploy
+
+- [x] Build de produção gerado sem erros
+- [x] Arquivo `_redirects` configurado
+- [x] Todas as rotas testadas em produção
+- [x] Responsividade verificada em múltiplos dispositivos
+- [x] APIs externas funcionando (DummyJSON, ViaCEP)
+- [x] README atualizado com link do deploy
+- [x] DOCUMENTACAO.md completa
+
+### 🌐 Link do Projeto
+
+**Deploy:** [https://tadsstoreocg.netlify.app/](https://tadsstoreocg.netlify.app/)
+
+## ��‍💻 Desenvolvedor
 
 * **Instituição:** Instituto Federal do Espírito Santo - Campus Alegre
 * **Curso:** Tecnologia em Análise e Desenvolvimento de Sistemas - EAD

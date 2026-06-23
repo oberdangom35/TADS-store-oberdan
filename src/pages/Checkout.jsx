@@ -112,7 +112,15 @@ function Checkout({ busca, setBusca, categoria, setCategoria, categorias, buscaA
 
   const handleCepChange = (e) => {
     const valorFormatado = formatarCep(e.target.value);
-    setEndereco({...endereco, cep: valorFormatado});
+    setEndereco({
+      ...endereco, 
+      cep: valorFormatado,
+      rua: '',
+      bairro: '',
+      cidade: '',
+      estado: ''
+    });
+    setErroCep('');
   };
 
   const avancarParaPagamento = () => {

@@ -29,7 +29,6 @@ function ProdutoDetalhe({ busca, setBusca, categoria, setCategoria, categorias, 
         setProduto(dados);
       } catch (error) {
         setErro('Não foi possível carregar o produto. Tente novamente mais tarde.');
-        console.error('Erro ao buscar produto:', error);
       } finally {
         setCarregando(false);
       }

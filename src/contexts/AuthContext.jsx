@@ -159,7 +159,6 @@ export function AuthProvider({ children }) {
       
       return { sucesso: true };
     } catch (error) {
-      console.error('Erro ao fazer login:', error);
       return { 
         sucesso: false, 
         erro: 'Erro ao conectar com o servidor. Tente novamente.' 

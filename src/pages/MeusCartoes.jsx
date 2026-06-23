@@ -6,9 +6,6 @@ import Rodape from '../components/Rodape';
 function MeusCartoes({ busca, setBusca, categoria, setCategoria, categorias, buscaAberta, setBuscaAberta }) {
   const { usuario } = useAuth();
 
-  console.log('Dados do usuário em MeusCartoes:', usuario);
-  console.log('Dados do banco:', usuario?.bank);
-
   const obterSaudacao = () => {
     const hora = new Date().getHours();
     if (hora >= 5 && hora < 12) {

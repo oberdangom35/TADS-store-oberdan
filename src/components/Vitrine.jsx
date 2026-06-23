@@ -26,7 +26,6 @@ function Vitrine({ busca = '', categoria = 'all', categorias = [], setCategorias
         setProdutos(dados.products);
       } catch (error) {
         setErro('Não foi possível carregar os produtos. Tente novamente mais tarde.');
-        console.error('Erro ao buscar produtos:', error);
       } finally {
         setCarregando(false);
       }
@@ -42,7 +41,6 @@ function Vitrine({ busca = '', categoria = 'all', categorias = [], setCategorias
         const dados = await resposta.json();
         setCategorias(dados);
       } catch (error) {
-        console.error('Erro ao buscar categorias:', error);
       }
     };
 

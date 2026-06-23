@@ -57,17 +57,45 @@ function Cabecalho({ busca, setBusca, categoria, setCategoria, categorias, busca
       if (!categorias || categorias.length === 0) return;
       
       const larguraTela = window.innerWidth;
-      let maxVisiveis;
+      const espacoReservado = larguraTela * 0.35;
+      const espacoFixoCategorias = larguraTela * 0.13;
+      const espacoDisponivel = larguraTela - espacoReservado - espacoFixoCategorias;
+
+      let larguraPorCaractere, espacoSeparador;
       
-      if (larguraTela >= 1200) {
-        maxVisiveis = 7;
-      } else if (larguraTela >= 900) {
-        maxVisiveis = 6;
-      } else if (larguraTela >= 700) {
-        maxVisiveis = 5;
-      } else if (larguraTela >= 500) {
-        maxVisiveis = 3;
+      if (larguraTela <= 400) {
+        larguraPorCaractere = 6.5;
+        espacoSeparador = 12;
+      } else if (larguraTela <= 480) {
+        larguraPorCaractere = 7;
+        espacoSeparador = 16;
+      } else if (larguraTela <= 709) {
+        larguraPorCaractere = 7.5;
+        espacoSeparador = 16;
+      } else if (larguraTela <= 1024) {
+        larguraPorCaractere = 6.2;
+        espacoSeparador = 16;
       } else {
+        larguraPorCaractere = 7.5;
+        espacoSeparador = 24;
+      }
+      
+      let espacoUsado = 0;
+      let maxVisiveis = 0;
+      
+      for (let i = 0; i < categorias.length; i++) {
+        const larguraCategoria = categorias[i].name.length * larguraPorCaractere;
+        const espacoNecessario = larguraCategoria + espacoSeparador;
+        
+        if (espacoUsado + espacoNecessario <= espacoDisponivel) {
+          espacoUsado += espacoNecessario;
+          maxVisiveis++;
+        } else {
+          break;
+        }
+      }
+      
+      if (maxVisiveis < 2 && categorias.length >= 2) {
         maxVisiveis = 2;
       }
       
